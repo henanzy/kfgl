@@ -2,6 +2,13 @@ $(document).ready(function() {
 
 
 	var nationalList = [];
+	/*var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
+	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];*/
 	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
@@ -9,7 +16,7 @@ $(document).ready(function() {
 			arr1[1] = json[i].contents;
 			arr1[2] = json[i].author;
 			arr1[3] = json[i].tm;
-			arr1[4] = json[i].id;
+			arr1[4] = json[i].ID;
 			
 			nationalList.push(arr1);
 		};
@@ -34,12 +41,7 @@ $(document).ready(function() {
 		for(var j = 0;j < nationalList[i].length;j ++){
 
 			nationalList[i][j] = nationalList[i][j]+"";
-//			if(newsList[i][j].length > 15){
-//				var new_newsList = newsList[i][j].slice(0,14);
-//				newsTr.innerHTML += "<td>" + new_newsList + "···</td>";
-//			}else{
-//				newsTr.innerHTML += "<td>" + newsList[i][j] + "</td>";
-//			}
+			
 
 			if(j == 0){
 				naTr.innerHTML += "<td><a href='#'>" + nationalList[i][j] + "<a/></td>";
@@ -55,11 +57,7 @@ $(document).ready(function() {
 			naTr.innerHTML += "<td>" + nationalList[i][j] + "</td>";
 		
 		}
-		if(type=="qyyh"){
-			naTr.innerHTML += "<td><input class='del_btn na_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
-		}
-		
-		
+		naTr.innerHTML += "<td><input class='del_btn na_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
 		naTbody.appendChild(naTr);
 	
 	}
@@ -93,7 +91,7 @@ $(document).ready(function() {
 			                 })
 			              });
 	});
-	$("#na_del").click(function(){
+	$("#na_option_del").click(function(){
 
 		 layer.confirm('确认删除么', function(index) {
 			 $('input[name="check"]:checked').each(function (index, item) {
@@ -165,6 +163,26 @@ function wz_change(p){
 	for(var i = 0;i < changeInput.length;i ++){
 		changeInput[i].value = changenewsList[i];
 	}
+	var editor1 = new E('#E1');
+    var $ueditorContent1 = $('#ueditorContent1');
+    editor1.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent1.val(html);
+    };
+    editor1.customConfig.uploadImgServer = 'fileUp.action' ;
+    editor1.customConfig.uploadFileName = 'img';
+    editor1.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                
+                insertImg(url);
+            },
+          },
+    editor1.create();
+    editor1.txt.html($ueditorContent1.val());
+    $ueditorContent1.val(editor1.txt.html())
 }
 
 

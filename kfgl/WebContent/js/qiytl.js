@@ -1,71 +1,8 @@
 $(document).ready(function() {
 
-	//轮播图
 
-	var slideBox = $(".slideBox");
-	var ul = slideBox.find("ul");
-	var oneWidth = slideBox.find("ul li").eq(0).width();
-	var number = slideBox.find(".spanBox span"); //注意分号 和逗号的用法
-	var timer = null;
-	var sw = 0;
-	//每个span绑定click事件，完成切换颜色和动画，以及读取参数值
-	number.on("click", function() {
-		$(this).addClass("active").siblings("span").removeClass("active");
-		sw = $(this).index();
-		ul.animate({
-			"right" : oneWidth * sw, //ul标签的动画为向左移动；
-		});
-	});
-	//左右按钮的控制效果
-	$(".next").stop(true, true).click(function() {
-		sw++;
-		if (sw == number.length) {
-			sw = 0
-		}
-		;
-		number.eq(sw).trigger("click");
-	});
-	$(".prev").stop(true, true).click(function() {
-		sw--;
-		if (sw == number.length) {
-			sw = 0
-		}
-		;
-		number.eq(sw).trigger("click");
-	});
-	//定时器的使用，自动开始
-	timer = setInterval(function() {
-		sw++;
-		if (sw == number.length) {
-			sw = 0
-		}
-		;
-		number.eq(sw).trigger("click");
-	}, 2000);
-	//hover事件完成悬停和，左右图标的动画效果
-	slideBox.hover(function() {
-		$(".next,.prev").animate({
-			"opacity" : 1,
-		}, 200);
-		clearInterval(timer);
-	}, function() {
-		$(".next,.prev").animate({
-			"opacity" : 0.5,
-		}, 500);
-		timer = setInterval(function() {
-			sw++;
-			if (sw == number.length) {
-				sw = 0
-			}
-			;
-			number.eq(sw).trigger("click");
-		}, 2000);
-	})
-	
-	
-	
+	var nationalList = [];
 
-	var newsList = [];
 	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
@@ -73,64 +10,55 @@ $(document).ready(function() {
 			arr1[1] = json[i].contents;
 			arr1[2] = json[i].author;
 			arr1[3] = json[i].tm;
-			arr1[4] = json[i].id;
+			arr1[4] = json[i].ID;
 			
-			newsList.push(arr1);
+			nationalList.push(arr1);
 		};
 	}
 	jsArrChange(zskList);
 	
-
+	
+	$("#xgzt").change(function(){
+		$(".na_modify_input").css("font-family",$("#xgzt").val());
+	});
 
 	
-	var newsTbody = document.getElementById("news_body");
-	for(var i = 0;i < newsList.length;i ++){
-		var newsTr = document.createElement("tr");
+	var naTbody = document.getElementById("na_body");
+	for(var i = 0;i < nationalList.length;i ++){
+		var naTr = document.createElement("tr");
 		if(i%2 == 1){
-			newsTr.className = "gradeX odd";
+			naTr.className = "gradeX odd";
 		}else if(i%2 == 0){
-			newsTr.className = "gradeX even";
+			naTr.className = "gradeX even";
 		}
-		newsTr.innerHTML += "<td><input type='checkbox' value='"+newsList[i][4]+"' name='check'/></td>";
+		naTr.innerHTML += "<td><input type='checkbox' value='"+nationalList[i][4]+"' name='check'/></td>";
 
 		
-		for(var j = 0;j < newsList[i].length;j ++){
+		for(var j = 0;j < nationalList[i].length;j ++){
 
-		
-
-			newsList[i][j] = newsList[i][j]+"";
-//			if(newsList[i][j].length > 15){
-//				var new_newsList = newsList[i][j].slice(0,14);
-//				newsTr.innerHTML += "<td>" + new_newsList + "···</td>";
-//			}else{
-//				newsTr.innerHTML += "<td>" + newsList[i][j] + "</td>";
-//			}
+			nationalList[i][j] = nationalList[i][j]+"";
+			
 
 			if(j == 0){
-				newsTr.innerHTML += "<td><a href='#'>" + newsList[i][j] + "</a></td>";
+				naTr.innerHTML += "<td><a href='#'>" + nationalList[i][j] + "<a/></td>";
 				continue;
 			}
 
 			if(j == 1||j==4){
 
-				newsTr.innerHTML += "<td style='display:none;'>" + newsList[i][j] + "</td>";
-				//console.log(newsList[i][j]);
+				naTr.innerHTML += "<td style='display:none;'>" + nationalList[i][j] + "</td>";
 				continue;
 			}
 			
-			newsTr.innerHTML += "<td>" + newsList[i][j] + "</td>";
+			naTr.innerHTML += "<td>" + nationalList[i][j] + "</td>";
 		
 		}
-		
-		if(type=="qyyh"){
-			newsTr.innerHTML += "<td><input class='del_btn qiy_del'  type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
-		}
-		
-		newsTbody.appendChild(newsTr);
+		naTr.innerHTML += "<td><input class='del_btn na_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
+		naTbody.appendChild(naTr);
 	
 	}
 	//全选
-	var allCheck = $(".all_option input[name='check']");
+	var allCheck = $(".all_na_option input[name='check']");
 
 	allCheck.click(function(){
 		$("input[type='checkbox']").prop("checked",$(this).prop("checked"));
@@ -159,7 +87,7 @@ $(document).ready(function() {
 			                 })
 			              });
 	});
-	$("#option_del").click(function(){
+	$("#na_option_del").click(function(){
 
 		 layer.confirm('确认删除么', function(index) {
 			 $('input[name="check"]:checked').each(function (index, item) {
@@ -181,15 +109,15 @@ $(document).ready(function() {
 			                 
 				    });
 			 layer.close(index);
-             window.location.reload();
+            window.location.reload();
 			              });
 	});
-	
 	//新增文章
-	$("#option_cr").click(function(){
-		$(".wz_crea").show();
+	$("#na_option_cr").click(function(){
+		$(".na_crea").show();
+		
 		var nowTime = getTime();
-		$(".wz_crea input[name='tm']").val(nowTime);
+		$(".na_crea input[name='tm']").val(nowTime);
 	});
 	
 	//修改文章
@@ -198,11 +126,11 @@ $(document).ready(function() {
 	});
 
 	//关闭修改
-	$(".wz_modify .close").click(function(){
-		$(".wz_modify").hide();
+	$(".na_modify .close").click(function(){
+		$(".na_modify").hide();
 	});
-	$(".wz_crea .close").click(function(){
-		$(".wz_crea").hide();
+	$(".na_crea .close").click(function(){
+		$(".na_crea").hide();
 	});
 	$(".wz_look .close").click(function(){
 		$(".wz_look").hide();
@@ -212,14 +140,15 @@ $(document).ready(function() {
 	$("td a").click(function(){
 		wz_look(this)
 	});
-
 })   
 
 function wz_change(p){
-	$(".wz_modify").show();
+	$(".na_modify").show();
+	//$(".na_modify_input").addClass("STKaiti");
 	var xintd = $(p).parent().parent().children();
 	//修改数据
 	var changenewsList = [];
+
 	for(var x = 1 ; x < 6; x ++){
 		if(x == 1){
 			changenewsList.push(xintd[x].childNodes[0].innerHTML)
@@ -228,11 +157,32 @@ function wz_change(p){
 		changenewsList.push(xintd[x].innerHTML);
 	}
 	
-	var changeInput = $(".wz_modify .wz_modify_input");
+	var changeInput = $(".na_modify .na_modify_input");
 	for(var i = 0;i < changeInput.length;i ++){
 		changeInput[i].value = changenewsList[i];
 	}
+	var editor1 = new E('#E1');
+    var $ueditorContent1 = $('#ueditorContent1');
+    editor1.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent1.val(html);
+    };
+    editor1.customConfig.uploadImgServer = 'fileUp.action' ;
+    editor1.customConfig.uploadFileName = 'img';
+    editor1.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                console.log(url);
+                insertImg(url);
+            },
+          },
+    editor1.create();
+    editor1.txt.html($ueditorContent1.val());
+    $ueditorContent1.val(editor1.txt.html())
 }
+
 
 function wz_look(p){
 	$(".wz_look").show();
@@ -251,6 +201,7 @@ function wz_look(p){
 	$(".wz_look_autor").html(changenewsList[2]);
 	$(".wz_look_time").html(changenewsList[3]);
 }
+
 
 function getTime() {  
 	var nS = new Date();

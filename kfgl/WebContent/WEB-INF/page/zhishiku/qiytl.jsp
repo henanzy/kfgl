@@ -1,22 +1,29 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	
+	
+	String ip =request.getScheme()+ "://"+request.getServerName()+ ":" + request.getServerPort()+"/";
+	
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 
-
-
-<!-- Required Stylesheets -->
-<link rel="stylesheet" type="text/css" href="../css/reset.css"
-	media="screen" />
+<link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css" media="screen" />	
 <script type="text/javascript" src="../js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="../js/layui/layui.js"></script>
 <script type="text/javascript" src="../js/layui/layui.all.js"></script>
-<link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css" media="screen" />	
+<!-- Required Stylesheets -->
+<link rel="stylesheet" type="text/css" href="../css/reset.css"
+	media="screen" />
 <link rel="stylesheet" type="text/css" href="../css/text.css"
 	media="screen" />
 <link rel="stylesheet" type="text/css"
@@ -95,79 +102,40 @@
 <script type="text/javascript" src="../js/demo.js"></script>
 <script type="text/javascript" src="../js/themer.js"></script>
 
-<script type="text/javascript" src="../js/qiytl.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/qiytl.css" media="screen" />
-
+<link rel="stylesheet" type="text/css" href="../css/guojfg.css" media="screen" />
+<script type="text/javascript" src="../js/release/wangEditor.js"></script>
+<script type="text/javascript" src="../js/release/wangEditor.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="../js/release/wangEditor.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css"
+	href="../js/release/wangEditor.css" media="screen" />
 </head>
  <script type="text/javascript">
 var zskList = ${zskList};
-
-var type="<%=request.getSession().getAttribute("type")%>";
 </script>
- 
+<style type="text/css">
+.STKaiti {
+      font-family:DFKai-SB;
+    }
+    
+</style>
+<script type="text/javascript" src="../js/qiytl.js"></script>
 <body>
 
 	<div id="" class="clearfix" style="overflow-x: hidden;width:96%;height:1000;min-width:1100px;">
-	
-		<div class="company_about" style="width: 98%; padding-left: 12px; min-width:500px">
-			<div class="company_about_text">
-				<p>
-					河南众源系统工程有限公司前身是成立于1993年的开封市电子研究所，是专门从事设备自动化系统研发和生产的科研机构。长期以来，凭借自控行业对做人、做事、做技术等各个方面的高标准、
-					严要求，形成了本公司踏实稳健的工作作风，科学严谨的技术根底，拥有其他众多工控贸易类公司所不具备的非常强大的综合技术优势，并且依此优势于2004年迁址郑州高新区，
-					成立了河南众源系统工程有限公司。
-				</p>
-				<p>
-					河南众源系统工程有限公司主要从事于综合能源管理、智慧供热、楼宇智能化、工业自动化等系统的深化设计、产品研发、安装施工、系统调试和售后维保等一系列的系统集成工程服务。
-					是一家凭借DDC、PLC、单片机等多种综合技术手段，向您提供在电力配电、暖通空调、智能照明、集中供热等领域，实施远程仪表数据采集、远程设备自动控制、综合能源管理、
-					收费管理系统等综合解决方案的最具综合实力的公司。
-				</p>
-				<p>
-					经过多年的技术沉淀和创新发展，河南众源系统工程有限公司先后获得了《河南省科技型中小企业证书》、《河南省高新技术企业证书》、《质量管理体系认证证书》和《知识产权管理体系认证证书》。
-					并申请获得了2项《国家发明专利证书》、22项《实用新型专利证书》和23项《计算机软件著作权登记证书》。凭借着公司多年的技术优势在智慧供热、楼宇科技等行业处于明显的领先地位，
-					具有极好的公司信誉和知名度。并且在供热和楼宇领域拥有行业领先的具有自主知识产权的系统平台和产品。
-				</p>
-			</div>
-			<div class="company_about_img">
-				<div class="slideBox">
-					<ul>
-						<li><img src="../images/background/qiy1.jpg" alt="" width="300" height="200" /></li>
-						<li><img src="../images/background/qiy2.jpg" alt="" width="300" height="200" /></li>
-						<li><img src="../images/background/qiy3.jpg" alt="" width="300" height="200" /></li>
-						<li><img src="../images/background/qiy4.jpg" alt="" width="300" height="200" /></li>
-					</ul>
-					<div class="spanBox">
-						<span class="active">1</span> 
-						<span>2</span> 
-						<span>3</span> 
-						<span>4</span>
-					</div>
-					<div class="next">
-						<img src="../images/background/right.png" width="50" height="50" alt="" />
-					</div>
-					<div class="prev">
-						<img src="../images/background/left.png" width="50" height="50" alt="" />
-					</div>
-				</div>
-			</div>
-
-		</div>
 		
-		<div class="company_new">
+		<div class="national_new">
 			<div class="mws-panel grid_8 "
 			style="width: 98%; padding-left: 12px; margin: 0px 0px 30px 0px; min-width:500px">
 				<div class="mws-panel-header">
-					<span class="mws-i-24 i-table-1">新闻动态</span>
+					<span class="mws-i-24 i-table-1">企业条例</span>
 				</div>
-				<div class="all_option">
-				<c:if test="${type=='qyyh'}">
+				<div class="all_na_option">
 					<input type="checkbox" name="check"/><span>全选</span>
-					<input id="option_del" class="qiy_del" type="button" value="删除" />
-					<input id="option_cr" type="button" value="新增" />
-					</c:if>
-					
-				
+					<input id="na_option_del"   class="na_del" type="button" value="删除" />
+					<input id="na_option_cr" type="button" value="新增" />
 				</div>
-				<div id="news_table_body" class="mws-panel-body"
+				<div id="na_table_body" class="mws-panel-body"
 					style="overflow: auto !important; height: 700px;">
 					<table class="mws-table">
 						<thead>
@@ -176,12 +144,10 @@ var type="<%=request.getSession().getAttribute("type")%>";
 								<th class="table-th-css">文章标题<span class="span-up"></span> <span class="span-down"></span></th>
 								<th class="table-th-css">作者<span class="span-up"></span> <span class="span-down"></span></th>
 								<th class="table-th-css">发布时间<span class="span-up"></span> <span class="span-down"></span></th>
-								<c:if test="${type=='qyyh'}">
 								<th class="table-th-css">操作</th>
-								</c:if>
 							</tr>
 						</thead>
-						<tbody id="news_body">
+						<tbody id="na_body">
 							
 							
 						</tbody>
@@ -190,60 +156,87 @@ var type="<%=request.getSession().getAttribute("type")%>";
 			</div>
 		</div>
 		
-		<div class="wz_crea" style="min-width:1000px;overflow-x: hidden;">
-			<div class="wz_crea_body">
+		<div class="na_crea" style="min-width:1000px;overflow-x: hidden;">
+			<div class="na_crea_body">
 				<span class="close"></span>
-				<h5>新增文章</h5>
+				<h5>新增企业条例</h5>
 				<form action="addZsk.action"  method="post">
-					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea required="required" name="contents"></textarea></label></p>
+					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" />
+					
+					</label></p>
+					<div id="E"></div>
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
+					<textarea name="contents" id="ueditorContent" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="企业条例"/>
-		            <p class="wz_crea_p"><input id="wz_crea_btn" type="submit" value="提交" /></p>
+		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
 		</div>
 		
-		<div class="wz_modify" style="min-width:1000px;overflow-x: hidden;">
-			<div class="wz_modify_body">
+		<div class="na_modify" style="min-width:1000px;overflow-x: hidden;">
+			<div class="na_modify_body">
 				<span class="close"></span>
-				<h5>文章修改</h5>
-
+				<h5>条例修改</h5>
 				<form action="updateZsk.action" method="POST">
-					<p><label><span>文章标题：</span><input class="wz_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea class="wz_modify_input" name="contents" required="required"></textarea></label></p>
-					<p><label><span>作者：</span><input class="wz_modify_input" required="required" type="text" name="author" value="" /></label></p>
-					<p><label><span>发布时间：</span><input class="wz_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
+					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" />
+				
+					</label></p>
+					<div id="E1"></div>
+					<textarea name="contents" class="na_modify_input" id="ueditorContent1" style="width:100%; height:200px;display:none" ></textarea>
+					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
+					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="企业条例"/>
-					<input class="wz_modify_input"  readonly="readonly" type="hidden" name="Id" value="" />
-					<p class="wz_mod_p"><input id="wz_mod_btn" type="submit" value="确定修改" /></p>
-
+					<input class="na_modify_input"  readonly="readonly" type="hidden" name="id" value="" />
+					<p class="na_mod_p"><input id="wz_mod_btn" type="submit" value="确定修改" /></p>
 				</form>
 			</div>
 		</div>
-	
-	
-	
+		
 		<div class="wz_look" style="min-width:1000px;overflow-x: hidden;">
 			<div class="wz_look_body">
 				<span class="close"></span>
 					<div>
 						<h5 class="wz_look_title"></h5>
-						<p>
+						<p style="text-align:center">
 							作者：<span class="wz_look_autor"></span>
 							发布时间：<span class="wz_look_time"></span>
 						</p>
 					</div>
-					<p class="wz_look_content"></p>
 					
+					<div style=" overflow-y:auto; overflow-x:auto; " class="wz_look_content" readonly="readonly"></div>
 			</div>
 		</div>
 		
+		
 	</div> 
 	
+	<script type="text/javascript">
 	
+	var E = window.wangEditor;
+    var editor = new E('#E');
+    var $ueditorContent = $('#ueditorContent');
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent.val(html);
+    };
+    editor.customConfig.uploadImgServer = '<%=basePath%>/ZskCon/fileUp.action' ;
+    editor.customConfig.uploadFileName = 'img';
+    editor.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                console.log(url);
+                insertImg(url);
+            },
+          },
+    editor.create();
+    $ueditorContent.val(editor.txt.html());
+    
+    
+	</script>
 
 </body>
 </html>

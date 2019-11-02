@@ -196,7 +196,9 @@
         top: 20px;
         right: 6px;
     }
-	
+	th, td {
+	white-space: nowrap;
+}
 </style>
 
 <script type="text/javascript">

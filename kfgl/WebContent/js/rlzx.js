@@ -2,13 +2,7 @@ $(document).ready(function() {
 
 
 	var nationalList = [];
-	/*var nationalList = [["测试1","测试内容1","测试","2019-03-09 22:38:26"],["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]
-	,["测试1","测试内容1","测试","2019-03-09 22:38:26"]];*/
+	
 	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
@@ -80,7 +74,7 @@ $(document).ready(function() {
 			                      dataType:'json',
 			                  	data:{	
 			      					"id":id,
-			      					"type":"问题解答",
+			      					"type":"热力咨询",
 			      				},
 			                     dataType: "json",
 			                      success: function (data) {
@@ -102,7 +96,7 @@ $(document).ready(function() {
 			                      dataType:'json',
 			                  	data:{	
 			      					"id":$(this).val(),
-			      					"type":"问题解答",
+			      					"type":"热力咨询",
 			      				},
 			                     dataType: "json",
 			                      success: function (data) {

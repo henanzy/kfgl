@@ -99,11 +99,17 @@ function canssz(){//
 function qiytl(){// 
     window.open("<%=basePath%>ZskCon/getQytl.action?type=企业条例", "Conframe");
 } 
+function rlzx(){// 
+    window.open("<%=basePath%>ZskCon/getQytl.action?type=热力咨询", "Conframe");
+} 	
 function guojfg(){// 
 	window.open("<%=basePath%>ZskCon/getQytl.action?type=国家法规", "Conframe");
 } 
 function hangyzs(){// 
 	window.open("<%=basePath%>ZskCon/getQytl.action?type=行业知识", "Conframe");
+} 
+function gsgg(){// 
+    window.open("<%=basePath%>ZskCon/getQytl.action?type=公司公告", "Conframe");
 } 
 function xitsm(){// 
 	window.open("<%=basePath%>ZskCon/getQytl.action?type=系统说明", "Conframe");
@@ -163,8 +169,8 @@ function yhxx(){//
                     <li class="active">
                     	<a href="#" class="mws-i-24 i-address-book-2">热力信息</a>
                           <ul class="ac_kf"> 
-                    	        <li><a onclick="qiytl()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;热力咨询</a></li>
-                        	    <li><a onclick="guojfg()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;公司公告</a></li>
+                    	        <li><a onclick="rlzx()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;热力咨询</a></li>
+                        	    <li><a onclick="gsgg()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;公司公告</a></li>
                              	
                         </ul>
                     </li>

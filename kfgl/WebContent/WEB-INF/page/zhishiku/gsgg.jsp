@@ -10,6 +10,7 @@
 	String ip =request.getScheme()+ "://"+request.getServerName()+ ":" + request.getServerPort()+"/";
 	
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -100,20 +101,20 @@
 <script type="text/javascript" src="../js/mws.js"></script>
 <script type="text/javascript" src="../js/demo.js"></script>
 <script type="text/javascript" src="../js/themer.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/guojfg.css" media="screen" />
 <script type="text/javascript" src="../js/release/wangEditor.js"></script>
 <script type="text/javascript" src="../js/release/wangEditor.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="../js/release/wangEditor.min.css" media="screen" />
 	<link rel="stylesheet" type="text/css"
 	href="../js/release/wangEditor.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../css/guojfg.css" media="screen" />
-
 </head>
  <script type="text/javascript">
 var zskList = ${zskList};
 </script>
 
-<script type="text/javascript" src="../js/hangyzs.js"></script>
+<script type="text/javascript" src="../js/gsgg.js"></script>
 <body>
 
 	<div id="" class="clearfix" style="overflow-x: hidden;width:96%;height:1000;min-width:1100px;">
@@ -122,7 +123,7 @@ var zskList = ${zskList};
 			<div class="mws-panel grid_8 "
 			style="width: 98%; padding-left: 12px; margin: 0px 0px 30px 0px; min-width:500px">
 				<div class="mws-panel-header">
-					<span class="mws-i-24 i-table-1">行业知识</span>
+					<span class="mws-i-24 i-table-1">公司公告</span>
 				</div>
 				<div class="all_na_option">
 					<input type="checkbox" name="check"/><span>全选</span>
@@ -150,35 +151,35 @@ var zskList = ${zskList};
 			</div>
 		</div>
 		
-		<div class="na_crea" style="min-width:1000px;overflow-x: hidden;">
+		<div class="na_crea" style="min-width:700px;overflow-x: hidden;">
 			<div class="na_crea_body">
 				<span class="close"></span>
-				<h5>新增行业知识</h5>
+				<h5>新增</h5>
 				<form action="addZsk.action"  method="post">
 					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
 					<div id="E"></div>
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
 					<textarea name="contents" id="ueditorContent" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
-					<input type="hidden" name="zsktype" value="行业知识"/>
+					<input type="hidden" name="zsktype" value="公司公告"/>
 		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
 		</div>
 		
-		<div class="na_modify" style="min-width:1000px;overflow-x: hidden;">
+		<div class="na_modify" style="min-width:800px;overflow-x: hidden;">
 			<div class="na_modify_body">
 				<span class="close"></span>
-				<h5>行业知识修改</h5>
+				<h5>修改</h5>
 				<form action="updateZsk.action" method="POST">
 					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
 					<div id="E1"></div>
-						<textarea name="contents" class="na_modify_input" id="ueditorContent1" style="width:100%; height:200px;display:none" ></textarea>
+					<textarea name="contents" class="na_modify_input" id="ueditorContent1" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
 				
 					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
-					<input type="hidden" name="zsktype" value="行业知识"/>
+					<input type="hidden" name="zsktype" value="公司公告"/>
 					<input class="na_modify_input"  readonly="readonly" type="hidden" name="id" value="" />
 					<p class="na_mod_p"><input id="wz_mod_btn" type="submit" value="确定修改" /></p>
 				</form>
@@ -190,7 +191,7 @@ var zskList = ${zskList};
 				<span class="close"></span>
 					<div>
 						<h5 class="wz_look_title"></h5>
-						<p style="text-align:center"> 
+						<p style="text-align:center">
 							作者：<span class="wz_look_autor"></span>
 							发布时间：<span class="wz_look_time"></span>
 						</p>
@@ -199,7 +200,6 @@ var zskList = ${zskList};
 					
 			</div>
 		</div>
-		
 		
 	</div> 
 	<script type="text/javascript">

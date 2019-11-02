@@ -1,5 +1,8 @@
 $(document).ready(function() {
-	var systemList = [];
+
+
+	var nationalList = [];
+	
 	function jsArrChange(json){
 		for (var i = 0 ; i < json.length ; i ++) {
 			var arr1 = [];
@@ -7,54 +10,53 @@ $(document).ready(function() {
 			arr1[1] = json[i].contents;
 			arr1[2] = json[i].author;
 			arr1[3] = json[i].tm;
-			arr1[4] = json[i].id;
+			arr1[4] = json[i].ID;
 			
-			systemList.push(arr1);
+			nationalList.push(arr1);
 		};
 	}
 	jsArrChange(zskList);
 	
+	
+	
 
 	
-	var systemTbody = document.getElementById("system_body");
-	for(var i = 0;i < systemList.length;i ++){
-		var systemTr = document.createElement("tr");
+	var naTbody = document.getElementById("na_body");
+	for(var i = 0;i < nationalList.length;i ++){
+		var naTr = document.createElement("tr");
 		if(i%2 == 1){
-			systemTr.className = "gradeX odd";
+			naTr.className = "gradeX odd";
 		}else if(i%2 == 0){
-			systemTr.className = "gradeX even";
+			naTr.className = "gradeX even";
 		}
-		systemTr.innerHTML += "<td><input type='checkbox' value='"+systemList[i][4]+"' name='check'/></td>";
+		naTr.innerHTML += "<td><input type='checkbox' value='"+nationalList[i][4]+"' name='check'/></td>";
 
 		
-		for(var j = 0;j < systemList[i].length;j ++){
+		for(var j = 0;j < nationalList[i].length;j ++){
 
-			systemList[i][j] = systemList[i][j]+"";
+			nationalList[i][j] = nationalList[i][j]+"";
+			
 
 			if(j == 0){
-				systemTr.innerHTML += "<td><a href='#'>" + systemList[i][j] + "<a/></td>";
+				naTr.innerHTML += "<td><a href='#'>" + nationalList[i][j] + "<a/></td>";
 				continue;
 			}
 
 			if(j == 1||j==4){
 
-				systemTr.innerHTML += "<td style='display:none;'>" + systemList[i][j] + "</td>";
+				naTr.innerHTML += "<td style='display:none;'>" + nationalList[i][j] + "</td>";
 				continue;
 			}
 			
-			systemTr.innerHTML += "<td>" + systemList[i][j] + "</td>";
+			naTr.innerHTML += "<td>" + nationalList[i][j] + "</td>";
 		
 		}
-		
-		if(type=="qyyh"){
-			systemTr.innerHTML += "<td><input class='del_btn system_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
-		}
-		
-		systemTbody.appendChild(systemTr);
+		naTr.innerHTML += "<td><input class='del_btn na_del' type='button' value='删除' /><input class='mod_btn' type='button' value='修改' /></td>";
+		naTbody.appendChild(naTr);
 	
-	}    
+	}
 	//全选
-	var allCheck = $(".all_system_option input[name='check']");
+	var allCheck = $(".all_na_option input[name='check']");
 
 	allCheck.click(function(){
 		$("input[type='checkbox']").prop("checked",$(this).prop("checked"));
@@ -83,7 +85,7 @@ $(document).ready(function() {
 			                 })
 			              });
 	});
-	$("#system_option_del").click(function(){
+	$("#na_option_del").click(function(){
 
 		 layer.confirm('确认删除么', function(index) {
 			 $('input[name="check"]:checked').each(function (index, item) {
@@ -105,27 +107,27 @@ $(document).ready(function() {
 			                 
 				    });
 			 layer.close(index);
-          window.location.reload();
+            window.location.reload();
 			              });
 	});
 	//新增文章
-	$("#system_option_cr").click(function(){
-		$(".system_crea").show();
+	$("#na_option_cr").click(function(){
+		$(".na_crea").show();
 		var nowTime = getTime();
-		$(".system_crea input[name='tm']").val(nowTime);
+		$(".na_crea input[name='tm']").val(nowTime);
 	});
 	
 	//修改文章
 	$(".mod_btn").click(function(){
-		system_change(this)
+		wz_change(this)
 	});
 
 	//关闭修改
-	$(".system_modify .close").click(function(){
-		$(".system_modify").hide();
+	$(".na_modify .close").click(function(){
+		$(".na_modify").hide();
 	});
-	$(".system_crea .close").click(function(){
-		$(".system_crea").hide();
+	$(".na_crea .close").click(function(){
+		$(".na_crea").hide();
 	});
 	$(".wz_look .close").click(function(){
 		$(".wz_look").hide();
@@ -137,14 +139,11 @@ $(document).ready(function() {
 	});
 })   
 
-function system_change(p){
-	
-	
-	$(".system_modify").show();
+function wz_change(p){
+	$(".na_modify").show();
 	var xintd = $(p).parent().parent().children();
 	//修改数据
 	var changenewsList = [];
-
 
 	for(var x = 1 ; x < 6; x ++){
 		if(x == 1){
@@ -154,10 +153,30 @@ function system_change(p){
 		changenewsList.push(xintd[x].innerHTML);
 	}
 	
-	var changeInput = $(".system_modify .system_modify_input");
+	var changeInput = $(".na_modify .na_modify_input");
 	for(var i = 0;i < changeInput.length;i ++){
 		changeInput[i].value = changenewsList[i];
 	}
+	var editor1 = new E('#E1');
+    var $ueditorContent1 = $('#ueditorContent1');
+    editor1.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent1.val(html);
+    };
+    editor1.customConfig.uploadImgServer = 'fileUp.action' ;
+    editor1.customConfig.uploadFileName = 'img';
+    editor1.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                console.log(url);
+                insertImg(url);
+            },
+          },
+    editor1.create();
+    editor1.txt.html($ueditorContent1.val());
+    $ueditorContent1.val(editor1.txt.html())
 }
 
 

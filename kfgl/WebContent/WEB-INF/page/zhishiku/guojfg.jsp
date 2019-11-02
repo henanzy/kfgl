@@ -1,7 +1,16 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	
+	
+	String ip =request.getScheme()+ "://"+request.getServerName()+ ":" + request.getServerPort()+"/";
+	
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -93,28 +102,32 @@
 <script type="text/javascript" src="../js/demo.js"></script>
 <script type="text/javascript" src="../js/themer.js"></script>
 
-<script type="text/javascript" src="../js/guojfg.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/guojfg.css" media="screen" />
-
+<script type="text/javascript" src="../js/release/wangEditor.js"></script>
+<script type="text/javascript" src="../js/release/wangEditor.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="../js/release/wangEditor.min.css" media="screen" />
+	<link rel="stylesheet" type="text/css"
+	href="../js/release/wangEditor.css" media="screen" />
 </head>
  <script type="text/javascript">
 var zskList = ${zskList};
-var type="<%=request.getSession().getAttribute("type")%>";
-
 </script>
+
+<script type="text/javascript" src="../js/guojfg.js"></script>
 <body>
 
 	<div id="" class="clearfix" style="overflow-x: hidden;width:96%;height:1000;min-width:1100px;">
-	
+		
+		<div class="national_new">
 			<div class="mws-panel grid_8 "
-			style="width: 98%; padding-left: 12px;min-width:500px">
+			style="width: 98%; padding-left: 12px; margin: 0px 0px 30px 0px; min-width:500px">
 				<div class="mws-panel-header">
 					<span class="mws-i-24 i-table-1">法规知识</span>
 				</div>
 				<div class="all_na_option">
 					<input type="checkbox" name="check"/><span>全选</span>
-					
-					<input id="na_option_del"  id="na_del" class="na_del" type="button" value="删除" />
+					<input id="na_option_del"   class="na_del" type="button" value="删除" />
 					<input id="na_option_cr" type="button" value="新增" />
 				</div>
 				<div id="na_table_body" class="mws-panel-body"
@@ -126,9 +139,7 @@ var type="<%=request.getSession().getAttribute("type")%>";
 								<th class="table-th-css">文章标题<span class="span-up"></span> <span class="span-down"></span></th>
 								<th class="table-th-css">作者<span class="span-up"></span> <span class="span-down"></span></th>
 								<th class="table-th-css">发布时间<span class="span-up"></span> <span class="span-down"></span></th>
-								<c:if test="${type=='qyyh'}">
 								<th class="table-th-css">操作</th>
-								</c:if>
 							</tr>
 						</thead>
 						<tbody id="na_body">
@@ -137,6 +148,7 @@ var type="<%=request.getSession().getAttribute("type")%>";
 						</tbody>
 					</table>
 				</div>
+			</div>
 		</div>
 		
 		<div class="na_crea" style="min-width:1000px;overflow-x: hidden;">
@@ -145,11 +157,12 @@ var type="<%=request.getSession().getAttribute("type")%>";
 				<h5>新增法规</h5>
 				<form action="addZsk.action"  method="post">
 					<p><label><span>文章标题：</span><input type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea required="required" name="contents"></textarea></label></p>
+					<div id="E"></div>
 					<p><label><span>作者：</span><input required="required" type="text" name="author" value="" /></label></p>
+					<textarea name="contents" id="ueditorContent" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>发布时间：</span><input required="required" type="text" name="tm" value="" /></label></p>
 					<input type="hidden" name="zsktype" value="国家法规"/>
-		            <p><input id="wz_crea_btn" type="submit" value="提交" /></p>
+		            <p style="text-align:center"><input id="wz_crea_btn" type="submit" value="提交" /></p>
 				
 				</form>
 			</div>
@@ -161,11 +174,12 @@ var type="<%=request.getSession().getAttribute("type")%>";
 				<h5>法规修改</h5>
 				<form action="updateZsk.action" method="POST">
 					<p><label><span>文章标题：</span><input class="na_modify_input" type="text" required="required" autofocus="autofocus" name="title" value="" /></label></p>
-					<p><label><span>文章内容：</span><textarea class="na_modify_input" name="contents" required="required"></textarea></label></p>
+					<div id="E1"></div>
+					<textarea name="contents" class="na_modify_input" id="ueditorContent1" style="width:100%; height:200px;display:none" ></textarea>
 					<p><label><span>作者：</span><input class="na_modify_input" required="required" type="text" name="author" value="" /></label></p>
+				
 					<p><label><span>发布时间：</span><input class="na_modify_input" required="required" readonly="readonly" type="text" name="tm" value="" /></label></p>
-					<input type="hidden" name="zsktype" value="国家法规"/>
-					<input class="na_modify_input"  readonly="readonly" type="hidden" name="Id" value="" />
+					<input class="na_modify_input"  readonly="readonly" type="hidden" name="id" value="" />
 					<p class="na_mod_p"><input id="wz_mod_btn" type="submit" value="确定修改" /></p>
 				</form>
 			</div>
@@ -176,12 +190,12 @@ var type="<%=request.getSession().getAttribute("type")%>";
 				<span class="close"></span>
 					<div>
 						<h5 class="wz_look_title"></h5>
-						<p>
+						<p style="text-align:center">
 							作者：<span class="wz_look_autor"></span>
 							发布时间：<span class="wz_look_time"></span>
 						</p>
 					</div>
-					<p class="wz_look_content"></p>
+					<div style=" overflow-y:auto; overflow-x:auto; " class="wz_look_content" readonly="readonly"></div>
 					
 			</div>
 		</div>
@@ -189,7 +203,31 @@ var type="<%=request.getSession().getAttribute("type")%>";
 		
 	</div> 
 	
+	<script type="text/javascript">
 	
+	var E = window.wangEditor;
+    var editor = new E('#E');
+    var $ueditorContent = $('#ueditorContent');
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $ueditorContent.val(html);
+    };
+    editor.customConfig.uploadImgServer = '<%=basePath%>/ZskCon/fileUp.action' ;
+    editor.customConfig.uploadFileName = 'img';
+    editor.customConfig.uploadImgHooks = {
+            // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+            customInsert: function (insertImg, result, editor) {
+                // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果：
+                var url = result.url;
+                
+                insertImg(url);
+            },
+          },
+    editor.create();
+    $ueditorContent.val(editor.txt.html());
+    
+    
+	</script>
 
 </body>
 </html>

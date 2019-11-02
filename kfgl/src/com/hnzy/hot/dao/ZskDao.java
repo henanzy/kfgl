@@ -1,22 +1,18 @@
 package com.hnzy.hot.dao;
 
 import java.util.List;
-
-import org.apache.poi.ss.usermodel.Cell;
-
-import com.hnzy.hot.pojo.Call;
-import com.hnzy.hot.pojo.Zsk;
-
+import java.util.Map;
 
 public interface ZskDao {
- 
-	public List<Zsk> selAll(String zsktype);
+				
+    public List<Map<String, Object>> selAll(String zsktype);
 	
-	public Zsk selZskById(String id);
+	public Map<String, Object> selZskById(String id);
 	
-	public void addZsk(Zsk zsk);
+	public void addZsk(Map<String, Object> map);
 	
 	public void deleteZsk(String id);
 	
-	public void updateZsk(Zsk zsk);
+	public void updateZsk(Map<String, Object> map);
+	
 }
