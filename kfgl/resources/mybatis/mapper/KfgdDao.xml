@@ -144,6 +144,6 @@
          
          <if test="tjName!=null and tjName!=''">
             and TJ_Name =#{tjName}
-         </if>
+         </if> order by TJ_Time desc
 		</select>
 </mapper>
