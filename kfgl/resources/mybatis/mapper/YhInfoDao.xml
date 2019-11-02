@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.YhInfoDao">
+	<resultMap type="YhInfo" id="yhInfo">
+		<id property="id" column="ID" />
+		<result property="valAd" column="ValAd" />
+		<result property="xqName" column="XqName" />
+		<result property="buildNo" column="BuildNO" />
+		<result property="cellNo" column="CellNO" />
+		<result property="houseNo" column="HouseNO" />
+		<result property="yhName" column="YhName" />
+		<result property="telephone" column="Telephone" />
+		<result property="buileArea" column="BuileArea" />
+		<result property="heatArea" column="HeatArea" />
+		<result property="status" column="SFJF" />
+		<result property="famKd" column="FamKd" />
+		<result property="valTemp" column="ValTemp" />
+		<result property="roomTemp" column="RoomTemp" />
+		<result property="recordTime" column="RecordTime" />
+		<result property="type" column="Type" />
+		
+	</resultMap>
+	<resultMap id="YhMap" type="java.util.HashMap"></resultMap>
+	<select id="fidnYhByTel" resultMap="yhInfo">
+	select y.XqName,y.BuildNO,y.CellNO,y.HouseNO,y.YhName,y.Telephone,y.HeatArea
+	
+	from T_YhInfo y where 1=1 
+	    <if test="XqName!=null and XqName!=''">
+			and y.XqName=#{XqName}
+		</if>
+		
+		<if test="BuildNo!=null and BuildNo!=''">
+			and y.BuildNo=#{BuildNo}
+		</if>
+		<if test="CellNO!=null and CellNO!=''">
+			and y.CellNO=#{CellNO}
+		</if>
+		<if test="hh!=null and hh!=''">
+	    and y.HouseNO=#{hh}
+        </if>
+	    <if test="tel!=null and tel!=''">
+	    and Telephone=#{tel}
+        </if>
+	
+	</select>
+	
+	<select id="findXq" resultMap="YhMap" >
+		select distinct XqName from T_YhInfo where yhrb=0 or yhrb=2
+
+	</select>
+	
+	
+	<select id="findLd" resultMap="YhMap" >
+		select distinct BuildNo from T_YhInfo where XqName=#{xqm} order by BuildNo
+
+	</select>
+	
+	<select id="findDy" resultMap="YhMap" >
+		select distinct CellNo from T_YhInfo where XqName=#{xqm} and BuildNo=#{ldh} order by CellNo
+
+	</select>
+	
+	<select id="findHh" resultMap="YhMap" >
+
+		select HouseNo as name  from T_YhInfo where XqName=#{xqm} and BuildNo=#{ldh} and CellNo=#{dyh} 
+		order by HouseNo 
+	</select>
+</mapper>  

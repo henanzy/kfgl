@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.KfgdDao">
+	<resultMap type="Kfgd" id="kfgd">
+		<id property="id" column="ID" />
+		<result property="gdNum" column="GdNum" />
+		<result property="buildNo" column="BuildNo" />
+		<result property="cellNo" column="CellNo" />
+		<result property="houseNo" column="HouseNo" />
+		<result property="telephone" column="Telephone" />
+		<result property="visCon" column="VisCon" />
+		<result property="xqName" column="XqName" />	
+		<result property="tjName" column="TJ_Name" />
+		<result property="tjTime" column="TJ_Time" />
+		<result property="state" column="State" />
+		<result property="yhName" column="YhName" />
+		<result property="gdState" column="GdState"/>
+		<result property="auditTime" column="AuditTime" />
+		<result property="auditors" column="Auditors" />
+		<result property="auditOpin" column="AuditOpin"/>
+		<result property="pickName" column="PickName"/>
+		<result property="pickTime" column="PickTime"/>
+		<result property="completetime" column="CompleteTime"/>
+		<result property="count"  column="count"/>
+	</resultMap>
+	<resultMap id="YhxxMap" type="java.util.HashMap"></resultMap>
+	     <select id="selGd" resultMap="kfgd">
+	     select * from K_KfGd where State!='作废' and State!='审核通过'  order by TJ_Time desc
+	     </select>                                      
+		<insert id="insertGd">
+		   insert into K_KfGd (GdNum,Telephone,VisCon,BuildNo,CellNo,HouseNo,YhName,TJ_Name,TJ_Time,State,XqName,gdlb)
+		   Values(#{gdNum},#{telephone},#{visCon},#{buildNo},#{cellNo},#{houseNo},#{yhName}
+		   ,#{tjName},#{tjTime},#{state},#{xqName},#{gdlb})
+		</insert>
+		<update id="updateGd">
+		   update K_KfGd set  VisCon=#{visCon},YhName=#{yhName},XqName=#{xqName},
+		   BuildNo=#{buildNo},CellNo=#{cellNo},HouseNo=#{houseNo},Telephone=#{telephone} 
+		   ,State=#{state}
+		   where GdNum=#{gdNum}
+		</update>
+		<delete id="deleteGd">
+		delete from K_KfGd  where GdNum=#{gdNum}
+		</delete>
+		<select id="SelGdBytel" resultMap="kfgd">
+		select * from K_KfGd where telephone=#{tel}
+		</select>
+		<!-- 工单审核 -->
+		
+		<select id="selGdSh"  resultMap="kfgd">
+	   	select * from K_KfGd where State!='作废' and State!='回退修改' and State!='审核通过' and State!='已完成' and State!='已接单'
+	   	 order by TJ_Time desc
+		</select>
+		<update id="UpdategdSh">
+		 update K_KfGd set State=#{state} , Auditors=#{auditors},AuditOpin=#{auditOpin},AuditTime=#{auditTime}
+		 where GdNum=#{gdNum}
+		</update>
+		<select id="selGdjk"  resultMap="kfgd">
+		select * from K_KfGd where State!='作废' order by TJ_Time desc
+		
+		</select>
+		<select id="selGdtj"  resultType="java.lang.Integer">
+	   	select count(*) from K_KfGd where state=#{state}
+		</select>
+		
+		<select id="selDjgd"  resultType="java.lang.Integer">
+	   	select  count(*) from K_KfGd where DateDiff(dd,TJ_Time,getdate())=#{day}
+		</select>
+		
+		<select id="selWcgd"  resultType="java.lang.Integer">
+	   	select  count(*) from K_KfGd where DateDiff(dd,CompleteTime,getdate())=#{day}
+		</select>
+		
+		<select id="selFYqgd"  resultType="java.lang.Integer">
+	   select count(*) from K_KfGd where State!='逾期工单'
+		</select>
+		
+		<update id="setyqgd"  >
+	    update  K_KfGd set state='逾期工单' where DateDiff(hh,TJ_Time,getdate())>#{sj} and state='未审核'
+		</update>
+		
+		<update id="insertCs">
+		update csb set csz=#{sj}
+		</update>
+		
+		<select id="selCsb"  resultType="java.lang.Integer">
+	   select * from csb 
+		</select>
+		
+		<select id="selJjgq"  resultType="java.lang.Integer">
+	   select count(*) from K_KfGd where DateDiff(hh,TJ_Time,getdate())>#{sj} and state='未审核'
+		</select>
+		<select id="selGdByNum"  resultMap="kfgd">
+	     select * from K_KfGd where gdNum=#{gdNum}
+		</select>
+		<select id="searGdxx"  resultMap="kfgd">
+		
+		select COUNT(State) count,State from K_KfGd
+		 where 1=1
+		<if test="state!=null and state!='' and state!='全部'">
+            and state =#{state}
+         </if>
+         
+         <if test="tjName!=null and tjName!=''">
+            and TJ_Name =#{tjName}
+         </if>
+		 group by State
+		</select>
+		
+		<select id="searGdlx"  resultMap="kfgd">
+		
+		select COUNT(gdlb) count,gdlb from K_KfGd
+		 where 1=1 and gdlb is not null 
+		<if test="state!=null and state!='' and state!='全部'">
+            and state =#{state}
+         </if>
+         
+         <if test="tjName!=null and tjName!=''">
+            and TJ_Name =#{tjName}
+         </if>
+		 group by gdlb
+		</select>
+		<select id="selectTjName" resultMap="kfgd">
+			select distinct TJ_Name from K_KfGd 
+			 where TJ_Name is not null and TJ_Name !=''
+		</select>
+		<select id="selectGd"  resultMap="kfgd">
+		select * from K_KfGd
+		where 1=1
+		
+		<if test="xqName!=null and xqName!=''">
+            and XqName =#{xqName}
+         </if>
+         
+         <if test="buildNo!=null and buildNo!=''">
+            and BuildNO =#{buildNo}
+         </if>
+         
+         <if test="cellNo!=null and cellNo!=''">
+            and CellNO =#{cellNo}
+         </if>
+         <if test="state!=null and state!='' and state!='全部'">
+            and state =#{state}
+         </if>
+         
+         <if test="tjName!=null and tjName!=''">
+            and TJ_Name =#{tjName}
+         </if>
+		</select>
+</mapper>

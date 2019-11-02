@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.CallDao">
+	<resultMap type="Call" id="call">
+		<id property="Id" column="ID" />
+		<result property="callFlag" column="callFlag" />
+		<result property="callerNo" column="callerNo" />
+		<result property="calledNo" column="calledNo" />
+		<result property="inTime" column="inTime" />
+		<result property="startTime" column="startTime" />
+		<result property="endTime" column="endTime" />
+		<result property="fileName" column="fileName" />
+		<result property="recTime" column="RecTime" />
+		<result property="giveups" column="Giveups" />
+	</resultMap>
+	                                            
+	<select id="selCell" resultMap="call">
+	select ID,callFlag,callerNo,calledNo,inTime,startTime
+	endTime,fileName,RecTime,Giveups
+	 from YZ_Rec where callerNo=#{tel} or calledNo=#{tel} order by RecTime desc
+	</select>
+	
+	<select id="getCallCount" resultType="java.lang.Integer">
+    select  count(*) from YZ_Rec where DateDiff(dd,inTime,getdate())=#{day} and callFlag=1
+	</select>
+	
+	<select id="getCall" resultMap="call">
+   select  * from YZ_Rec order by RecTime desc
+	</select>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.YhxxDao">
+<resultMap type="YhInfo" id="yhInfo">
+		<id property="id" column="ID" />
+		<result property="valAd" column="ValAd" />
+		<result property="xqName" column="XqName" />
+		<result property="buildNo" column="BuildNO" />
+		<result property="cellNo" column="CellNO" />
+		<result property="houseNo" column="HouseNO" />
+		<result property="yhName" column="YhName" />
+		<result property="telephone" column="Telephone" />
+		<result property="buileArea" column="BuileArea" />
+		<result property="heatArea" column="HeatArea" />
+		<result property="status" column="SFJF" />
+		<result property="famKd" column="FamKd" />
+		<result property="valTemp" column="ValTemp" />
+		<result property="roomTemp" column="RoomTemp" />
+		<result property="recordTime" column="RecordTime" />
+		<result property="type" column="Type" />
+		<result property="wCAd" column="WCAd" />
+		<result property="idNum" column="IDNum" />
+		<result property="valAd" column="ValAd" />
+	</resultMap>
+	 <resultMap id="map" type="java.util.HashMap"></resultMap> 
+	 
+	 <select id="findYhxx" resultMap="map">
+	 select top 1000 id, YhName,xqName,ValAd,BuildNo,CellNO,HouseNo,Telephone,BuileArea,HeatArea,SFJF,Bz,IDNum
+	  from T_YhInfo where 1=1
+	  <if test="xqName!=null and xqName!=''">
+            and XqName =#{xqName}
+         </if>
+         
+         <if test="buildNO!=null and buildNO!=''">
+            and BuildNO =#{buildNO}
+         </if>
+         
+         <if test="cellNO!=null and cellNO!=''">
+            and CellNO =#{cellNO}
+         </if>
+         
+         <if test="houseNO!=null and houseNO!=''">
+            and HouseNO =#{houseNO}
+         </if>
+	 </select>                                          
+	<insert id="addYhxx">
+	
+		insert into T_YhInfo (XqName,IDNum,ValAd,BuildNO,CellNO,HouseNO,YhName,Telephone
+		,BuileArea,HeatArea,SFJF,Bz)
+		values
+		 (
+		#{xqName},#{idNum},#{valAd},#{buildNo},#{cellNo},#{houseNo},#{yhName}
+		,#{telephone},#{buileArea},#{heatArea},#{sfjf},#{bz}
+         )
+	</insert>
+	<update id="updateYhxx">
+	update T_YhInfo set XqName=#{xqName},IDNum=#{idNum},ValAd=#{valAd},BuildNO=#{buildNo},CellNO=#{cellNo}
+	,HouseNO=#{houseNo},YhName=#{yhName},Telephone=#{telephone},BuileArea=#{buileArea},HeatArea=#{heatArea}
+	,SFJF=#{sfjf},Bz=#{bz} where id=#{id}
+	</update>
+	<delete id="delete">
+	delete from T_YhInfo where ID=#{id} 
+	</delete>
+	<delete id="qdelete">
+	delete from T_YhInfo
+	</delete>
+	 <select id="findxqName" resultMap="map">
+		select XqName from T_YhInfo where (YhRb=0 or YhRb=2) and XqName is not null  group by 
+		XqName
+	</select>
+	
+	<select id="findLd" resultMap="map">
+		select BuildNO from T_YhInfo where XqName=#{xqName}
+		group by BuildNO
+	</select>
+	<select id="findDy" resultMap="map">
+		select CellNO from T_YhInfo where XqName=#{xqName} and
+		BuildNO=#{buildNO} group by
+		CellNO
+	</select>
+	<select id="findHh"  resultMap="map">
+	select distinct HouseNO from T_YhInfo where XqName=#{xqName} and
+		BuildNO=#{buildNO} and
+		CellNO=#{cellNO}  group by
+		HouseNO  order by HouseNO asc
+	</select>
+</mapper>
