@@ -166,6 +166,18 @@ function yhxx(){//
                              	<li><a class="taglist" onclick="canssz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;参数设置</a></li>
                         </ul>
                     </li>
+                     <li class="active">
+                    	<a href="#" class="mws-i-24 i-users">站内维修</a>
+                          <ul class="ac_kf"> 
+                    	       <!--  <li><a class="first-a taglist" onclick="kehzl()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;电话弹窗</a></li> -->
+                             	<li><a class="taglist" onclick="xinjgd()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;新建工单</a></li>
+                             	<li><a class="taglist" onclick="gongdsh()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;工单审核</a></li>
+                             	<li><a class="taglist" onclick="gongdjk()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;工单监控</a></li>
+                             	<li><a class="taglist" onclick="tongjfx2()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;统计分析</a></li>
+                             	<!-- <li><a class="taglist" onclick="canssz()" target="Conframel">&nbsp;&nbsp;&nbsp;&nbsp;参数设置</a></li> -->
+                        </ul>
+                    </li>
+                    
                     <li class="active">
                     	<a href="#" class="mws-i-24 i-address-book-2">热力信息</a>
                           <ul class="ac_kf"> 
