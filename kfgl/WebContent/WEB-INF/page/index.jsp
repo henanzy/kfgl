@@ -187,7 +187,7 @@
 
 
 <body>
-	<div id="bgt"></div>
+	<div id="bgt"><img width="120px" src="../images/ewm.png"></div>
 	
 	<div id="mws-login">
 		<div class="sigma-content">

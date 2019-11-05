@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.hnzy.hot.dao.HrzgdDao">
+	<resultMap type="Hrzgd" id="hrzgd">
+		<id property="id" column="ID" />
+		<result property="gdNum" column="GdNum" />
+		
+		<result property="telephone" column="Telephone" />
+		<result property="visCon" column="VisCon" />
+		<result property="hrz" column="hrz" />
+			
+		<result property="tjName" column="TJ_Name" />
+		<result property="tjTime" column="TJ_Time" />
+		<result property="state" column="State" />
+		
+		<result property="gdState" column="GdState"/>
+		<result property="auditTime" column="AuditTime" />
+		<result property="auditors" column="Auditors" />
+		<result property="auditOpin" column="AuditOpin"/>
+		<result property="pickName" column="PickName"/>
+		<result property="pickTime" column="PickTime"/>
+		<result property="completetime" column="CompleteTime"/>
+		<result property="count"  column="count"/>
+	</resultMap>
+	<resultMap id="YhxxMap" type="java.util.HashMap"></resultMap>
+	     <select id="selGd" resultMap="hrzgd">
+	     select * from K_hrzgd where State!='作废' and State!='审核通过'  order by TJ_Time desc
+	     </select>                                      
+		<insert id="insertGd">
+		   insert into K_hrzgd (GdNum,Telephone,VisCon,hrz,TJ_Name,TJ_Time,State,gdlb)
+		   Values(#{gdNum},#{telephone},#{visCon},#{hrz},
+		   #{tjName},#{tjTime},#{state},#{gdlb})
+		</insert>
+		<update id="updateGd">
+		   update K_hrzgd set  VisCon=#{visCon},
+		  hrz=#{hrz} 
+		   ,State=#{state}
+		   where GdNum=#{gdNum}
+		</update>
+		<delete id="deleteGd">
+		delete from K_hrzgd  where GdNum=#{gdNum}
+		</delete>
+		<select id="SelGdBytel" resultMap="hrzgd">
+		select * from K_hrzgd where telephone=#{tel}
+		</select>
+		<!-- 工单审核 -->
+		
+		<select id="selGdSh"  resultMap="hrzgd">
+	   	select * from K_hrzgd where State!='作废' and State!='回退修改' and State!='审核通过' and State!='已完成' and State!='已接单'
+	   	 order by TJ_Time desc
+		</select>
+		<update id="UpdategdSh">
+		 update K_hrzgd set State=#{state} , Auditors=#{auditors},AuditOpin=#{auditOpin},AuditTime=#{auditTime}
+		 where GdNum=#{gdNum}
+		</update>
+		<select id="selGdjk"  resultMap="hrzgd">
+		select * from K_hrzgd where State!='作废' order by TJ_Time desc
+		
+		</select>
+		<select id="selGdtj"  resultType="java.lang.Integer">
+	   	select count(*) from K_hrzgd where state=#{state}
+		</select>
+		
+		<select id="selDjgd"  resultType="java.lang.Integer">
+	   	select  count(*) from K_hrzgd where DateDiff(dd,TJ_Time,getdate())=#{day}
+		</select>
+		
+		<select id="selWcgd"  resultType="java.lang.Integer">
+	   	select  count(*) from K_hrzgd where DateDiff(dd,CompleteTime,getdate())=#{day}
+		</select>
+		
+		<select id="selFYqgd"  resultType="java.lang.Integer">
+	   select count(*) from K_hrzgd where State!='逾期工单'
+		</select>
+		
+		<update id="setyqgd"  >
+	    update  K_hrzgd set state='逾期工单' where DateDiff(hh,TJ_Time,getdate())>#{sj} and state='未审核'
+		</update>
+		
+		<update id="insertCs">
+		update csb set csz=#{sj}
+		</update>
+		
+		<select id="selCsb"  resultType="java.lang.Integer">
+	   select * from csb 
+		</select>
+		
+		<select id="selJjgq"  resultType="java.lang.Integer">
+	   select count(*) from K_hrzgd where DateDiff(hh,TJ_Time,getdate())>#{sj} and state='未审核'
+		</select>
+		<select id="selGdByNum"  resultMap="hrzgd">
+	     select * from K_hrzgd where gdNum=#{gdNum}
+		</select>
+		<select id="searGdxx"  resultMap="hrzgd">
+		
+		select COUNT(State) count,State from K_hrzgd
+		 where 1=1
+		<if test="state!=null and state!='' and state!='全部'">
+            and state =#{state}
+         </if>
+         
+         <if test="tjName!=null and tjName!=''">
+            and TJ_Name =#{tjName}
+         </if>
+		 group by State
+		</select>
+		
+		<select id="searGdlx"  resultMap="hrzgd">
+		
+		select COUNT(gdlb) count,gdlb from K_hrzgd
+		 where 1=1 and gdlb is not null 
+		<if test="state!=null and state!='' and state!='全部'">
+            and state =#{state}
+         </if>
+         
+         <if test="tjName!=null and tjName!=''">
+            and TJ_Name =#{tjName}
+         </if>
+		 group by gdlb
+		</select>
+		<select id="selectTjName" resultMap="hrzgd">
+			select distinct TJ_Name from K_hrzgd 
+			 where TJ_Name is not null and TJ_Name !=''
+		</select>
+		<select id="selectGd"  resultMap="hrzgd">
+		select * from K_hrzgd
+		where 1=1
+		
+		
+         <if test="state!=null and state!='' and state!='全部'">
+            and state =#{state}
+         </if>
+         
+         <if test="tjName!=null and tjName!=''">
+            and TJ_Name =#{tjName}
+         </if> order by TJ_Time desc
+		</select>
+</mapper>

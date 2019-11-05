@@ -8,5 +8,6 @@
 	<typeAlias type="com.hnzy.hot.pojo.YhInfo" alias="YhInfo" />
 	<typeAlias type="com.hnzy.hot.pojo.FmInfo" alias="fmInfo" />
 	<typeAlias type="com.hnzy.hot.pojo.Zsk" alias="Zsk" />
+	<typeAlias type="com.hnzy.hot.pojo.Hrzgd" alias="Hrzgd" />
 	</typeAliases> 
 </configuration>
