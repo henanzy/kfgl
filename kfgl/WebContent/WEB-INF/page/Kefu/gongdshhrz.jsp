@@ -489,9 +489,7 @@ function() {
 							<th class="table-th-css">登记人<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">登记时间<span class="span-up"></span> <span class="span-down"></span></th>
 							<th class="table-th-css">工单状态<span class="span-up"></span> <span class="span-down"></span></th>
-							<%-- <c:if test="${type=='qyyh'}"> --%>
 							<th class="table-th-css">处理</th>
-						<%-- 	</c:if> --%>
 						</tr>
 					</thead>
 					<tbody id="shword_body">
@@ -509,7 +507,7 @@ function() {
 				<div class="mws-panel-header">
 					<span class="mws-i-24 i-pencil">审核通过</span> <span class="close"></span>
 				</div>
-				<div class="mws-panel-body" style="height: 810px;">
+				<div class="mws-panel-body" style="height: 450px;">
 					<form class="mws-form" action="updateGdSh.action"  method="post">
 					
 					<input name="state" value="审核通过" type="hidden">
@@ -596,7 +594,7 @@ function() {
 				<div class="mws-panel-header">
 					<span class="mws-i-24 i-pencil">回退订单</span> <span class="close"></span>
 				</div>
-				<div class="mws-panel-body" style="height: 810px;">
+				<div class="mws-panel-body" style="height: 450px;">
 					<form class="mws-form" action="updateGdSh.action"  method="post">
 					<input name="state" value="回退修改" type="hidden">
 						<div class="mws-form-inline">
@@ -681,7 +679,7 @@ function() {
 				<div class="mws-panel-header">
 					<span class="mws-i-24 i-pencil">作废订单</span> <span class="close"></span>
 				</div>
-				<div class="mws-panel-body" style="height: 810px;">
+				<div class="mws-panel-body" style="height: 450px;">
 					<form class="mws-form" action="updateGdSh.action"  method="post">
 					<input name="state" value="作废" type="hidden">
 						<div class="mws-form-inline">
